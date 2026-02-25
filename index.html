@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YOU LIN | Personal Page</title>
+  <meta name="description" content="Minimal personal page for YOU LIN" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="blob-wrap" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+
+  <main class="card">
+    <div class="top-row">
+      <span class="pill"><span class="dot"></span> Online</span>
+      <span class="pill" id="greeting">👋 Hello</span>
+    </div>
+
+    <h1>YOU LIN</h1>
+    <p class="subtitle">Personal Portfolio & Space</p>
+
+    <section class="clock" aria-label="Live clock">
+      <div class="clock-label">Live Clock</div>
+      <div class="clock-time" id="timeText">--:--:--</div>
+      <div class="clock-date" id="dateText">Loading...</div>
+    </section>
+
+    <div class="bottom">
+      <span>Minimal personal page</span>
+      <span id="yearText">© 2026</span>
+    </div>
+  </main>
+
+  <script>
+    const timeText = document.getElementById("timeText");
+    const dateText = document.getElementById("dateText");
+    const greeting = document.getElementById("greeting");
+    const yearText = document.getElementById("yearText");
+
+    function getGreeting(hour) {
+      if (hour < 5) return "🌙 Good Night";
+      if (hour < 12) return "☀️ Good Morning";
+      if (hour < 18) return "🌤️ Good Afternoon";
+      return "🌆 Good Evening";
+    }
+
+    function updateClock() {
+      const now = new Date();
+
+      const timeFormatter = new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false
+      });
+
+      const dateFormatter = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+
+      const hour = now.getHours();
+
+      timeText.textContent = timeFormatter.format(now);
+      dateText.textContent = dateFormatter.format(now);
+      greeting.textContent = getGreeting(hour);
+      yearText.textContent = "© " + now.getFullYear();
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
